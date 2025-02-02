@@ -7,12 +7,23 @@ import UserRoutes from "./routes/User.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// Configure CORS to allow requests from your frontend
+app.use(cors({
+  origin: "https://personall-trainer.netlify.app",  // Allow only this frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],        // Allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+}));
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); // for form data
 
 app.use("/api/user/", UserRoutes);  
-// error handler
+
+// Handle preflight requests
+app.options("*", cors());
+
+// Error handler middleware
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || "Something went wrong";
