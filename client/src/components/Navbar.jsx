@@ -138,7 +138,7 @@ const Navbar = ({ currentUser }) => {
         </Mobileicon>
         <NavLogo to="/">
           <Logo src={LogoImg} />
-          Fittrack
+          Personal-trainer
         </NavLogo>
 
         <MobileMenu isOpen={isOpen}>
